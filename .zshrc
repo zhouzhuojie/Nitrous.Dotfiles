@@ -43,6 +43,9 @@ ZSH_THEME="terminalparty"
 plugins=(git)
 
 source $ZSH/oh-my-zsh.sh
+alias meteor=~/workspace/meteor/meteor
+export MONGO_URL=mongodb://username:password@dharma.mongohq.com:10001/db
+
 
 if [ -x /usr/bin/dircolors ]; then
     test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
