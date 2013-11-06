@@ -12,18 +12,21 @@ sudo apt-get install -y ssh
 cd $HOME
 # Make dotfiles dir in setup directory
 sudo apt-get install -y tmux vim zsh
-git clone https://github.com/zhouzhuojie/Nitrous.Dotfiles.git dotfiles
-cp dotfiles/.bashrc ~/
-cp dotfiles/.gitconfig ~/
-cp dotfiles/.tmux.conf ~/
-cp dotfiles/.vimrc ~/
+rm -rf _dotfiles
+git clone https://github.com/zhouzhuojie/Nitrous.Dotfiles.git _dotfiles
+cp _dotfiles/.bashrc ~/
+cp _dotfiles/.gitconfig ~/
+cp _dotfiles/.tmux.conf ~/
+cp _dotfiles/.vimrc ~/
 curl -L https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh | sh
-cp dotfiles/.zshrc ~/
+cp _dotfiles/.zshrc ~/
 chsh -s /bin/zsh
+. ~/.zshrc
 
 # Node.js
 sudo apt-get install -y build-essential libssl-dev curl
 curl https://raw.github.com/creationix/nvm/master/install.sh | sh
+. ~/.nvm/nvm.sh
 nvm install 0.10.21
 nvm use 0.10.21
 nvm alias default 0.10.21
