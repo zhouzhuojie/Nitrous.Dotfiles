@@ -1,6 +1,4 @@
 #!/bin/bash
-# Simple setup.sh for configuring Ubuntu 13.04
-# for headless setup. for my personal Linux computer
 
 # Install git
 sudo apt-get install -y git-core
@@ -19,6 +17,7 @@ cp _dotfiles/.gitconfig ~/
 cp _dotfiles/.tmux.conf ~/
 cp _dotfiles/.vimrc ~/
 rm -rf .oh-my-zsh
+rm .zshrc
 curl -L https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh | sh
 cp _dotfiles/.zshrc ~/
 chsh -s /bin/zsh
@@ -33,7 +32,6 @@ nvm use 0.10
 nvm alias default 0.10
 curl https://install.meteor.com | /bin/sh
 
-# Install jshint to allow checking of JS code within emacs
 # http://jshint.com/
 npm install -g jshint
 npm install -g meteorite
