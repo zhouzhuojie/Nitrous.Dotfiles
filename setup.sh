@@ -28,9 +28,9 @@ chsh -s /bin/zsh
 sudo apt-get install -y build-essential libssl-dev curl
 curl https://raw.github.com/creationix/nvm/master/install.sh | sh
 . ~/.nvm/nvm.sh
-nvm install 0.10.21
-nvm use 0.10.21
-nvm alias default 0.10.21
+nvm install 0.10
+nvm use 0.10
+nvm alias default 0.10
 curl https://install.meteor.com | /bin/sh
 
 # Install jshint to allow checking of JS code within emacs
