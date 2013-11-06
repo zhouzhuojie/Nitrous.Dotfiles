@@ -18,6 +18,7 @@ cp _dotfiles/.bashrc ~/
 cp _dotfiles/.gitconfig ~/
 cp _dotfiles/.tmux.conf ~/
 cp _dotfiles/.vimrc ~/
+rm -rf .oh-my-zsh
 curl -L https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh | sh
 cp _dotfiles/.zshrc ~/
 chsh -s /bin/zsh
