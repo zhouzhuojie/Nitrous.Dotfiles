@@ -117,7 +117,7 @@ set ls=2
 
 " backup and noswap
 set noswapfile
-set backupdir=~/.backup/
+set nobackup
 set autoread
 set history=1000
 set backspace=indent,eol,start
