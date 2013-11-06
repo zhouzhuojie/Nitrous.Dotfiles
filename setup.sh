@@ -40,6 +40,6 @@ npm install -g meteorite
 npm install -g coffee-script
 
 # Python
-sudo apt-get install -y python-setuptools
+sudo apt-get install -y python-setuptools python-numpy python-scipy python-networkx
 sudo easy_install pip
-sudo pip install ipython scipy numpy networkx
+sudo pip install ipython
