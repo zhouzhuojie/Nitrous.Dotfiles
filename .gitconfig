@@ -24,5 +24,11 @@
 [alias]
     graph = log --graph --date-order -C -M --pretty=format:\"<%h> %ad [%an] %Cgreen%d%Creset %s\" --all --date=short
     g = grep --break --heading --line-number
+    st = status
+    ci = commit
+    br = branch
+    co = checkout
+    df = diff
+    lg = log -p
 [grep]
     extendRegexp = true

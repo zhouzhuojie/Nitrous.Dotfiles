@@ -14,11 +14,8 @@ ZSH_THEME="terminalparty"
 # Set to this to use case-sensitive completion
 # CASE_SENSITIVE="true"
 
-# Comment this out to disable bi-weekly auto-update checks
+# Comment this out to disable weekly auto-update checks
 # DISABLE_AUTO_UPDATE="true"
-
-# Uncomment to change how often before auto-updates occur? (in days)
-# export UPDATE_ZSH_DAYS=13
 
 # Uncomment following line if you want to disable colors in ls
 # DISABLE_LS_COLORS="true"
@@ -26,16 +23,8 @@ ZSH_THEME="terminalparty"
 # Uncomment following line if you want to disable autosetting terminal title.
 # DISABLE_AUTO_TITLE="true"
 
-# Uncomment following line if you want to disable command autocorrection
-# DISABLE_CORRECTION="true"
-
 # Uncomment following line if you want red dots to be displayed while waiting for completion
 # COMPLETION_WAITING_DOTS="true"
-
-# Uncomment following line if you want to disable marking untracked files under
-# VCS as dirty. This makes repository status check for large repositories much,
-# much faster.
-# DISABLE_UNTRACKED_FILES_DIRTY="true"
 
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
@@ -43,10 +32,9 @@ ZSH_THEME="terminalparty"
 plugins=(git)
 
 source $ZSH/oh-my-zsh.sh
-alias meteor=~/workspace/meteor/meteor
-export MONGO_URL=mongodb://username:password@dharma.mongohq.com:10001/db
 
-
+# Customize to your needs...
+# enable color support of ls and also add handy aliases
 if [ -x /usr/bin/dircolors ]; then
     test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
     alias ls='ls --color=auto'
@@ -60,7 +48,33 @@ fi
 
 # some more ls aliases
 alias ll='ls -alF --group-directories-first'
+alias la='ls -A'
+alias l='ls -CF'
+alias webshare='python ~/Dropbox/Current\ files/webshare.py 8888'
+alias search='apt-cache search'
+alias install='sudo apt-get install'
+alias update='sudo apt-get update'
+alias upgrade='sudo apt-get upgrade'
+alias matlab='/usr/local/MATLAB/R2010b/bin/matlab'
+alias freerapid='java -jar /home/zzj/Downloads/Installed_Apps/FreeRapid-0.86u1/frd.jar'
+alias ssh-x='ssh -c arcfour,blowfish-cbc -XC'
+alias htmlrsync='rsync -r ~/Dropbox/Workspace/PythonTest/wisesoc/_build/html ~/Dropbox/Public'
+alias aws='cd ~/.ssh && ssh -i wiseagg.pem ubuntu@ec2-23-20-245-232.compute-1.amazonaws.com'
+alias engedit="unison /home/zzj/Dropbox/Workspace/PythonTest/engedit ssh://ubuntu@ec2-54-242-188-118.compute-1.amazonaws.com/engedit -sshargs '-i /home/zzj/Dropbox/Personal/engeditorg.pem' -ignore 'Name {*.pyc, .git}'"
+alias dropbox-aerofs="rsync -ravz ~/Dropbox/* ~/AeroFS"
+alias aerofs-copy="rsync -ravz ~/AeroFS/* ~/Copy"
+alias dropbox-copy="rsync -ravz ~/Dropbox/* ~/Copy"
 
-# Customize to your needs...
-export PATH=$PATH:/home/action/.nvm/v0.10.11/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/home/action/.gem/ruby/1.9.1/bin
-source ~/.nvm/nvm.sh
+setopt nocorrectall
+
+function s {
+        sdcv $1
+        python ~/Dropbox/Workspace/PythonTest/bighugelabs/bighugelabs.py $1
+}
+
+#256-colour support
+export TERM="xterm-256color"
+export R_LIBS="/home/zzj/R/library"
+
+PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
+. ~/.nvm/nvm.sh
