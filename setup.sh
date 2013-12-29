@@ -2,7 +2,7 @@
 
 # Install git
 sudo apt-get update && sudo apt-get upgrade
-sudo apt-get install -y git-core vim
+sudo apt-get install -y git-core vim exuberant-ctags
 
 # install ssh ( for remote login to this machine )
 sudo apt-get install -y ssh
