@@ -2,7 +2,7 @@
 
 # Install git
 sudo aura -Syu
-sudo aura -S git-core vim ctags openssh wget
+sudo aura -S vim ctag git-core wget base-devel fakeroot expac openssh
 
 # Basic Env
 cd $HOME
