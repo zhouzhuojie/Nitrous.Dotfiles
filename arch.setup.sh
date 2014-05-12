@@ -41,3 +41,11 @@ npm install -g coffee-script
 sudo aura -S python2 python2-pip python2-numpy python2-scipy python2-networkx
 sudo pip2 install ipython
 sudo aura -Sc
+
+sudo systemctl start sshd
+sudo systemctl enable sshd
+
+
+
+
+
