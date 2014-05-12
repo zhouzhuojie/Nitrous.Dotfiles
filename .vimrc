@@ -121,7 +121,7 @@ set nobackup
 set autoread
 set history=1000
 set backspace=indent,eol,start
-
+syntax on
 
 " incremental search
 set incsearch
