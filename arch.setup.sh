@@ -22,7 +22,10 @@ chsh -s /bin/zsh
 . ~/.zshrc
 
 # Node.js
-curl https://raw.github.com/creationix/nvm/master/install.sh | sh
+rm -rf ~/.nvm
+rm -rf ~/.npm
+rm -rf ~/.bower
+git clone https://github.com/creationix/nvm.git ~/.nvm
 . ~/.nvm/nvm.sh
 nvm install 0.10
 nvm use 0.10
@@ -37,3 +40,4 @@ npm install -g coffee-script
 # Python
 sudo aura -S python2 python2-pip python2-numpy python2-scipy python2-networkx
 sudo pip2 install ipython
+sudo aura -Sc
