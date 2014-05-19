@@ -85,6 +85,7 @@ Bundle 'Gundo'
 " Ag
 Bundle 'rking/ag.vim'
 Bundle 'kchmck/vim-coffee-script'
+Bundle 'kshenoy/vim-signature'
 
 " Installing plugins the first time
 if iCanHazVundle == 0
