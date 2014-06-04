@@ -30,6 +30,7 @@ Bundle 'gmarik/vundle'
 Bundle 'fugitive.vim'
 " Better file browser
 Bundle 'scrooloose/nerdtree'
+Bundle 'jistr/vim-nerdtree-tabs'
 " Code commenter
 Bundle 'scrooloose/nerdcommenter'
 " Class/module browser
