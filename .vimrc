@@ -144,7 +144,7 @@ map <F4> :TagbarToggle<CR>
 let g:tagbar_autofocus = 1
 
 " NERDTree (better file browser) toggle
-map <F3> :NERDTreeToggle<CR>
+map <F3> :NERDTreeTabsToggle<CR>
 
 " tab navigation
 map tn :tabn<CR>
