@@ -87,6 +87,8 @@ Bundle 'Gundo'
 Bundle 'rking/ag.vim'
 Bundle 'kchmck/vim-coffee-script'
 Bundle 'kshenoy/vim-signature'
+" Autopep8
+Bundle 'tell-k/vim-autopep8'
 
 " Installing plugins the first time
 if iCanHazVundle == 0
