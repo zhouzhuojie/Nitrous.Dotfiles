@@ -48,4 +48,7 @@ sudo pip install ipdb
 # Golang
 sudo apt-get install -y golang golang-go.tools
 
+# Simple Webshare
+mkdir -p $HOME/.config/SimpleHTTPServerWithUpload
+wget http://bones7456.googlecode.com/svn/trunk/SimpleHTTPServerWithUpload.py -O $HOME/.config/SimpleHTTPServerWithUpload/SimpleHTTPServerWithUpload.py
 
