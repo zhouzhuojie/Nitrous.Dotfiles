@@ -44,3 +44,8 @@ sudo easy_install pip
 sudo pip install ipython
 sudo pip install autopep8
 sudo pip install ipdb
+
+# Golang
+sudo apt-get install -y golang golang-go.tools
+
+
