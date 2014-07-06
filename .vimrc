@@ -68,6 +68,7 @@ Bundle 'pyflakes.vim'
 Bundle 'IndexedSearch'
 " XML/HTML tags navigation
 Bundle 'matchit.zip'
+Bundle 'othree/html5.vim'
 " Gvim colorscheme
 Bundle 'Wombat'
 " Yank history navigation
@@ -91,6 +92,7 @@ Bundle 'kchmck/vim-coffee-script'
 Bundle 'tell-k/vim-autopep8'
 " GoLang
 Bundle 'fatih/vim-go'
+Bundle 'cespare/vim-go-templates'
 
 " Installing plugins the first time
 if iCanHazVundle == 0
@@ -113,10 +115,10 @@ let mapleader = ','
 let maplocalleader = '\'
 
 " tablength exceptions
-autocmd FileType html setlocal shiftwidth=2 tabstop=2
-autocmd FileType htmldjango setlocal shiftwidth=2 tabstop=2
-autocmd FileType javascript setlocal shiftwidth=2 tabstop=2
-autocmd FileType coffee setlocal shiftwidth=2 tabstop=2
+autocmd FileType html setlocal shiftwidth=4 tabstop=4
+autocmd FileType htmldjango setlocal shiftwidth=4 tabstop=4
+autocmd FileType javascript setlocal shiftwidth=4 tabstop=4
+autocmd FileType coffee setlocal shiftwidth=4 tabstop=4
 
 " always show status bar
 set ls=2
@@ -507,3 +509,4 @@ let g:neosnippet#enable_snipmate_compatibility = 1
 
 " Tell Neosnippet about the other snippets
 let g:neosnippet#snippets_directory='~/.vim/bundle/vim-snippets/snippets'
+au BufRead,BufNewFile *.tpl set filetype=gotplhtml
