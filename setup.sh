@@ -2,7 +2,7 @@
 
 # Install git
 sudo apt-get update && sudo apt-get upgrade
-sudo apt-get install -y git-core vim exuberant-ctags
+sudo apt-get install -y git-core vim-nox exuberant-ctags
 
 # install ssh ( for remote login to this machine )
 sudo apt-get install -y ssh
@@ -39,7 +39,8 @@ npm install -g meteorite
 npm install -g coffee-script
 
 # Python
-sudo apt-get install -y python-setuptools python-numpy python-scipy python-networkx
+sudo apt-get install -y python-setuptools python-numpy python-scipy python-networkx python-h5py python-matplotlib
 sudo easy_install pip
 sudo pip install ipython
 sudo pip install autopep8
+sudo pip install ipdb
