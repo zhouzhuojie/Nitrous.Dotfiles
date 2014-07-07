@@ -40,25 +40,6 @@ if [ -x /usr/bin/dircolors ]; then
     alias egrep='egrep --color=auto'
 fi
 
-# some more ls aliases
-alias ll='ls -alF --group-directories-first'
-alias la='ls -A'
-alias l='ls -CF'
-alias webshare='python ~/Dropbox/Current\ files/webshare.py 8888'
-alias search='apt-cache search'
-alias install='sudo apt-get install'
-alias update='sudo apt-get update'
-alias upgrade='sudo apt-get upgrade'
-alias matlab='/usr/local/MATLAB/R2010b/bin/matlab'
-alias freerapid='java -jar /home/zzj/Downloads/Installed_Apps/FreeRapid-0.86u1/frd.jar'
-alias ssh-x='ssh -c arcfour,blowfish-cbc -XC' 
-alias htmlrsync='rsync -r ~/Dropbox/Workspace/PythonTest/wisesoc/_build/html ~/Dropbox/Public'
-
-function s {
-	sdcv $1
-	python ~/Dropbox/Workspace/PythonTest/bighugelabs/bighugelabs.py $1
-}
-
 #256-colour support
 export TERM="xterm-256color"
 
@@ -81,5 +62,3 @@ fi
 if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
     . /etc/bash_completion
 fi
-
-PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
