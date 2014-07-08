@@ -2,17 +2,16 @@
 
 # Install git
 sudo apt-get update && sudo apt-get upgrade
-sudo apt-get install -y git-core vim-nox exuberant-ctags htop
+sudo apt-get install -y git-core vim-nox exuberant-ctags htop mercurial tmux zsh
+rm -rf _dotfiles
 
 # install ssh ( for remote login to this machine )
 sudo apt-get install -y ssh
 
 # Basic Env
 cd $HOME
-# Make dotfiles dir in setup directory
-sudo apt-get install -y tmux vim zsh
 rm -rf _dotfiles
-git clone https://github.com/zhouzhuojie/Nitrous.Dotfiles.git _dotfiles
+git clone https://github.com/zhouzhuojie/ZZJ.Dotfiles.git _dotfiles
 cp _dotfiles/.bashrc ~/
 cp _dotfiles/.gitconfig ~/
 cp _dotfiles/.tmux.conf ~/
@@ -21,8 +20,6 @@ rm -rf .oh-my-zsh
 rm .zshrc
 curl -L https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh | sh
 cp _dotfiles/.zshrc ~/
-chsh -s /bin/zsh
-. ~/.zshrc
 
 # Node.js
 sudo apt-get install -y build-essential libssl-dev curl
@@ -52,3 +49,5 @@ sudo apt-get install -y golang golang-go.tools
 mkdir -p $HOME/.config/SimpleHTTPServerWithUpload
 wget http://bones7456.googlecode.com/svn/trunk/SimpleHTTPServerWithUpload.py -O $HOME/.config/SimpleHTTPServerWithUpload/SimpleHTTPServerWithUpload.py
 
+chsh -s /bin/zsh
+. ~/.zshrc
