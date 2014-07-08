@@ -64,6 +64,7 @@ export R_LIBS="/home/zzj/R/library"
 
 PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
 . ~/.nvm/nvm.sh
+nvm alias default 0.10
 
 export GOROOT=/usr/lib/go
 export GOPATH=$HOME/go
