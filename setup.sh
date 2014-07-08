@@ -50,4 +50,4 @@ mkdir -p $HOME/.config/SimpleHTTPServerWithUpload
 wget http://bones7456.googlecode.com/svn/trunk/SimpleHTTPServerWithUpload.py -O $HOME/.config/SimpleHTTPServerWithUpload/SimpleHTTPServerWithUpload.py
 
 chsh -s /bin/zsh
-. ~/.zshrc
+source ~/.zshrc
