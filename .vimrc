@@ -43,8 +43,6 @@ Bundle 'mattn/emmet-vim'
 Bundle 'motemen/git-vim'
 " Tab list panel
 Bundle 'kien/tabman.vim'
-" Terminal Vim with 256 colors colorscheme
-Bundle 'fisadev/fisa-vim-colorscheme'
 " Surround
 Bundle 'tpope/vim-surround'
 " Autoclose
@@ -70,7 +68,8 @@ Bundle 'IndexedSearch'
 Bundle 'matchit.zip'
 Bundle 'othree/html5.vim'
 " Gvim colorscheme
-Bundle 'Wombat'
+Bundle 'ScrollColors'
+Bundle 'flazz/vim-colorschemes'
 " Yank history navigation
 Bundle 'YankRing.vim'
 " EasyMotion
@@ -118,7 +117,8 @@ let maplocalleader = '\'
 autocmd FileType html setlocal shiftwidth=4 tabstop=4
 autocmd FileType htmldjango setlocal shiftwidth=4 tabstop=4
 autocmd FileType javascript setlocal shiftwidth=4 tabstop=4
-autocmd FileType coffee setlocal shiftwidth=4 tabstop=4
+autocmd FileType coffee setlocal shiftwidth=2 tabstop=2
+autocmd BufNewFile,BufReadPost *.coffee setl shiftwidth=2 expandtab
 
 " always show status bar
 set ls=2
@@ -238,20 +238,7 @@ let g:pyflakes_use_quickfix = 0
 let g:tabman_toggle = 'tl'
 let g:tabman_focus  = 'tf'
 
-" use 256 colors when possible
-if &term =~? 'mlterm\|xterm\|screen-256'
-    let &t_Co = 256
-    " color
-    colorscheme fisa
-else
-    " color
-    colorscheme delek
-endif
-
-" colors for gvim
-if has('gui_running')
-    colorscheme wombat
-endif
+colorscheme codeschool
 
 " when scrolling, keep cursor 3 lines away from screen border
 set scrolloff=3
@@ -456,9 +443,19 @@ vnoremap > >gv
 " }
 
 nnoremap <localleader>u :GundoToggle<CR>
-highlight OverLength ctermbg=darkred ctermfg=white guibg=#592929
-match OverLength /\%81v.\+/
 
+let s:activatedh = 0
+function! ToggleH()
+    if s:activatedh == 0
+        let s:activatedh = 1
+        match Search '\%>80v.\+'
+    else
+        let s:activatedh = 0
+        match none
+    endif
+endfunction
+
+nnoremap <leader>h :call ToggleH()<CR>
 
 " Go ctags
 let g:tagbar_type_go = {
@@ -510,3 +507,6 @@ let g:neosnippet#enable_snipmate_compatibility = 1
 " Tell Neosnippet about the other snippets
 let g:neosnippet#snippets_directory='~/.vim/bundle/vim-snippets/snippets'
 au BufRead,BufNewFile *.tpl set filetype=gotplhtml
+
+"CtrlP Ignore
+set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*/node_modules/*
