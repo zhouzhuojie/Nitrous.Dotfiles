@@ -79,8 +79,8 @@ Bundle 'flazz/vim-colorschemes'
 Bundle 'YankRing.vim'
 " EasyMotion
 Bundle 'EasyMotion'
-" Neo
-Bundle 'Shougo/neocomplete.vim'
+" AutoComplete
+Bundle 'Valloric/YouCompleteMe'
 Bundle 'Shougo/neosnippet'
 Bundle 'honza/vim-snippets'
 " Jinja2
@@ -95,8 +95,8 @@ Bundle 'kchmck/vim-coffee-script'
 " Pep8
 Bundle 'tell-k/vim-autopep8'
 " GoLang
-Bundle 'fatih/vim-go'
-Bundle 'cespare/vim-go-templates'
+" Bundle 'fatih/vim-go'
+" Bundle 'cespare/vim-go-templates'
 
 " Installing plugins the first time
 if iCanHazVundle == 0
@@ -123,6 +123,7 @@ autocmd FileType htmldjango setlocal shiftwidth=4 tabstop=4
 autocmd FileType javascript setlocal shiftwidth=4 tabstop=4
 autocmd FileType coffee setlocal shiftwidth=2 tabstop=2
 autocmd BufNewFile,BufReadPost *.coffee setl shiftwidth=2 expandtab
+au BufNewFile,BufRead *.ejs set filetype=html
 
 " always show status bar
 set ls=2
@@ -342,8 +343,6 @@ let g:tagbar_type_go = {
     \ 'ctagsargs' : '-sort -silent'
 \ }
 
-" Neo
-let g:neocomplete#enable_at_startup = 1
 " <TAB>: completion.
 inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>" "
 
