@@ -16,7 +16,6 @@ endif
 " required for vundle
 filetype off
 
-
 set rtp+=~/.vim/bundle/vundle/
 call vundle#rc()
 
@@ -28,12 +27,12 @@ Bundle 'gmarik/vundle'
 
 " Vim Airline
 Bundle 'bling/vim-airline'
-Bundle 'Yggdroot/indentLine'
 
 " HTML
 Bundle 'amirh/HTML-AutoCloseTag'
 Bundle 'hail2u/vim-css3-syntax'
 Bundle 'gorodinskiy/vim-coloresque'
+Bundle 'd11wtq/tomorrow-theme-vim'
 Bundle 'tpope/vim-haml'
 
 " Fugitive
@@ -95,8 +94,8 @@ Bundle 'kchmck/vim-coffee-script'
 " Pep8
 Bundle 'tell-k/vim-autopep8'
 " GoLang
-" Bundle 'fatih/vim-go'
-" Bundle 'cespare/vim-go-templates'
+Bundle 'fatih/vim-go'
+Bundle 'cespare/vim-go-templates'
 
 " Installing plugins the first time
 if iCanHazVundle == 0
@@ -123,6 +122,13 @@ autocmd FileType htmldjango setlocal shiftwidth=4 tabstop=4
 autocmd FileType javascript setlocal shiftwidth=4 tabstop=4
 autocmd FileType coffee setlocal shiftwidth=2 tabstop=2
 autocmd BufNewFile,BufReadPost *.coffee setl shiftwidth=2 expandtab
+" automatically close autocompletion window
+autocmd CursorMovedI * if pumvisible() == 0|pclose|endif
+autocmd InsertLeave * if pumvisible() == 0|pclose|endif
+" run pep8+pyflakes+pylint validator with \8
+autocmd FileType python map <buffer> <leader>8 :PyLint<CR>
+autocmd InsertEnter *.json setlocal conceallevel=2 concealcursor=
+autocmd InsertLeave *.json setlocal conceallevel=2 concealcursor=inc
 au BufNewFile,BufRead *.ejs set filetype=html
 
 " always show status bar
@@ -172,9 +178,6 @@ map <c-h> <c-w>h
 map <c-k> <c-w>k
 map <c-m> <c-w>j
 
-" automatically close autocompletion window
-autocmd CursorMovedI * if pumvisible() == 0|pclose|endif
-autocmd InsertLeave * if pumvisible() == 0|pclose|endif
 
 " old autocomplete keyboard shortcut
 imap <C-J> <C-X><C-O>
@@ -220,8 +223,6 @@ let NERDTreeIgnore = ['\.pyc$', '\.pyo$']
 " python-mode settings
 " don't show lint result every time we save a file
 let g:pymode_lint_write = 0
-" run pep8+pyflakes+pylint validator with \8
-autocmd FileType python map <buffer> <leader>8 :PyLint<CR>
 " rules to ignore (example: "E501,W293")
 let g:pymode_lint_ignore = ""
 " don't add extra column for error icons (on console vim creates a 2-char-wide
@@ -243,7 +244,7 @@ let g:pyflakes_use_quickfix = 0
 let g:tabman_toggle = 'tl'
 let g:tabman_focus  = 'tf'
 
-colorscheme codeschool
+colorscheme badwolf
 
 " when scrolling, keep cursor 3 lines away from screen border
 set scrolloff=3
@@ -350,11 +351,6 @@ inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>" "
 imap <C-k>     <Plug>(neosnippet_expand_or_jump)
 smap <C-k>     <Plug>(neosnippet_expand_or_jump)
 xmap <C-k>     <Plug>(neosnippet_expand_target)
-
-" For snippet_complete marker.
-if has('conceal')
-  set conceallevel=2 concealcursor=i
-endif
 
 " Enable snipMate compatibility feature.
 let g:neosnippet#enable_snipmate_compatibility = 1
