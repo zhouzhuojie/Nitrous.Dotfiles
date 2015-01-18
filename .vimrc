@@ -244,7 +244,7 @@ let g:pyflakes_use_quickfix = 0
 let g:tabman_toggle = 'tl'
 let g:tabman_focus  = 'tf'
 
-colorscheme badwolf
+colorscheme codeschool
 
 " when scrolling, keep cursor 3 lines away from screen border
 set scrolloff=3
@@ -360,4 +360,5 @@ let g:neosnippet#snippets_directory='~/.vim/bundle/vim-snippets/snippets'
 au BufRead,BufNewFile *.tpl set filetype=gotplhtml
 
 "CtrlP Ignore
-set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*/node_modules/*
+set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*/node_modules/*,*/.meteor/*
+let g:ctrlp_show_hidden = 1
