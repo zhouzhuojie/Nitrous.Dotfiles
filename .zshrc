@@ -29,7 +29,7 @@ ZSH_THEME="terminalparty"
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
-plugins=(git)
+plugins=(git zsh-syntax-highlighting meteor git-extra wd)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -55,6 +55,7 @@ alias install='sudo apt-get install'
 alias update='sudo apt-get update'
 alias upgrade='sudo apt-get upgrade'
 alias webshare='python $HOME/.config/SimpleHTTPServerWithUpload/SimpleHTTPServerWithUpload.py'
+alias fast='fastosphere'
 
 setopt nocorrectall
 
