@@ -36,7 +36,7 @@ Bundle 'd11wtq/tomorrow-theme-vim'
 Bundle 'tpope/vim-haml'
 
 " Fugitive
-Bundle 'fugitive.vim'
+" Bundle 'fugitive.vim'
 " Better file browser
 Bundle 'scrooloose/nerdtree'
 Bundle 'jistr/vim-nerdtree-tabs'
@@ -96,6 +96,7 @@ Bundle 'tell-k/vim-autopep8'
 " GoLang
 Bundle 'fatih/vim-go'
 Bundle 'cespare/vim-go-templates'
+" Bundle 'klen/python-mode'
 
 " Installing plugins the first time
 if iCanHazVundle == 0
@@ -221,6 +222,7 @@ let g:ctrlp_custom_ignore = {
 let NERDTreeIgnore = ['\.pyc$', '\.pyo$']
 
 " python-mode settings
+let g:pymode = 1
 " don't show lint result every time we save a file
 let g:pymode_lint_write = 0
 " rules to ignore (example: "E501,W293")
@@ -229,7 +231,7 @@ let g:pymode_lint_ignore = ""
 " extra column)
 let g:pymode_lint_signs = 0
 " don't fold python code on open
-let g:pymode_folding = 1
+let g:pymode_folding = 0
 " don't load rope by default. Change to 1 to use rope
 let g:pymode_rope = 1
 
@@ -302,18 +304,9 @@ vnoremap > >gv
 
 nnoremap <localleader>u :GundoToggle<CR>
 
-let s:activatedh = 0
-function! ToggleH()
-    if s:activatedh == 0
-        let s:activatedh = 1
-        match Search '\%>80v.\+'
-    else
-        let s:activatedh = 0
-        match none
-    endif
-endfunction
-
-nnoremap <leader>h :call ToggleH()<CR>
+" 80 columns
+let &colorcolumn=join(range(81,999),",")
+let &colorcolumn="80,".join(range(400,999),",")
 
 " Go ctags
 let g:tagbar_type_go = {
