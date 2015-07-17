@@ -22,6 +22,7 @@ call vundle#rc()
 " let Vundle manage Vundle
 " required!
 Bundle 'gmarik/vundle'
+Bundle 'mkitt/tabline.vim'
 
 " Bundles from GitHub repos:
 
@@ -66,6 +67,7 @@ Bundle "digitaltoad/vim-jade"
 
 " Python code checker
 Bundle 'pyflakes.vim'
+Bundle 'hynek/vim-python-pep8-indent'
 " Search results counter
 Bundle 'IndexedSearch'
 " XML/HTML tags navigation
@@ -193,6 +195,28 @@ ca w!! w !sudo tee "%"
 set pastetoggle=<leader>p
 
 " CtrlP (new fuzzy finder)
+if exists("g:ctrlp_user_command")
+  unlet g:ctrlp_user_command
+endif
+if executable('ag')
+  " Use ag in CtrlP for listing files. Lightning fast and respects .gitignore
+  let g:ctrlp_user_command =
+    \ 'ag %s --files-with-matches -g "" --ignore "\.git$\|\.hg$\|\.svn$"'
+
+  " ag is fast enough that CtrlP doesn't need to cache
+  let g:ctrlp_use_caching = 0
+else
+  " Fall back to using git ls-files if Ag is not available
+  let g:ctrlp_custom_ignore = '\.git$\|\.hg$\|\.svn$'
+  let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files . --cached --exclude-standard --others']
+endif
+" Default to filename searches - so that appctrl will find application
+" controller
+"let g:ctrlp_by_filename = 1
+" Don't jump to already open window. This is annoying if you are maintaining
+" several Tab workspaces and want to open two windows into the same file.
+let g:ctrlp_switch_buffer = 0
+
 let g:ctrlp_map = ',e'
 nmap ,g :CtrlPBufTag<CR>
 nmap ,G :CtrlPBufTagAll<CR>
@@ -217,6 +241,8 @@ let g:ctrlp_custom_ignore = {
   \ 'dir':  '\v[\/](\.git|\.hg|\.svn)$',
   \ 'file': '\.pyc$\|\.pyo$',
   \ }
+set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*/node_modules/*,*/.meteor/*
+let g:ctrlp_show_hidden = 1
 
 " Ignore files on NERDTree
 let NERDTreeIgnore = ['\.pyc$', '\.pyo$']
@@ -351,7 +377,3 @@ let g:neosnippet#enable_snipmate_compatibility = 1
 " Tell Neosnippet about the other snippets
 let g:neosnippet#snippets_directory='~/.vim/bundle/vim-snippets/snippets'
 au BufRead,BufNewFile *.tpl set filetype=gotplhtml
-
-"CtrlP Ignore
-set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*/node_modules/*,*/.meteor/*
-let g:ctrlp_show_hidden = 1
