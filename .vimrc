@@ -68,6 +68,7 @@ Bundle "digitaltoad/vim-jade"
 " Python code checker
 Bundle 'pyflakes.vim'
 Bundle 'hynek/vim-python-pep8-indent'
+Bundle 'davidhalter/jedi-vim'
 " Search results counter
 Bundle 'IndexedSearch'
 " XML/HTML tags navigation
@@ -81,9 +82,10 @@ Bundle 'YankRing.vim'
 " EasyMotion
 Bundle 'EasyMotion'
 " AutoComplete
-Bundle 'Valloric/YouCompleteMe'
+" Bundle 'Valloric/YouCompleteMe'
+Bundle 'Shougo/neocomplete.vim'
 Bundle 'Shougo/neosnippet'
-Bundle 'honza/vim-snippets'
+Bundle 'Shougo/neosnippet-snippets'
 " Jinja2
 Bundle 'lepture/vim-jinja'
 " Tabular
@@ -98,7 +100,8 @@ Bundle 'tell-k/vim-autopep8'
 " GoLang
 Bundle 'fatih/vim-go'
 Bundle 'cespare/vim-go-templates'
-" Bundle 'klen/python-mode'
+" Javascript
+Bundle 'Shutnik/jshint2.vim'
 
 " Installing plugins the first time
 if iCanHazVundle == 0
@@ -130,9 +133,10 @@ autocmd CursorMovedI * if pumvisible() == 0|pclose|endif
 autocmd InsertLeave * if pumvisible() == 0|pclose|endif
 " run pep8+pyflakes+pylint validator with \8
 autocmd FileType python map <buffer> <leader>8 :PyLint<CR>
-autocmd InsertEnter *.json setlocal conceallevel=2 concealcursor=
-autocmd InsertLeave *.json setlocal conceallevel=2 concealcursor=inc
+autocmd InsertEnter *.json setlocal conceallevel=0 concealcursor=
+autocmd InsertLeave *.json setlocal conceallevel=0 concealcursor=inc
 au BufNewFile,BufRead *.ejs set filetype=html
+au FileType python setlocal formatprg=autopep8\ -aa\ --indent-size\ 0\ -
 
 " always show status bar
 set ls=2
@@ -174,6 +178,7 @@ map tm :tabm
 map tt :tabnew
 map <S-l> :tabn<CR>
 map <S-h> :tabp<CR>
+set switchbuf+=usetab,newtab
 
 " navigate windows with meta+arrows
 map <c-l> <c-w>l
@@ -298,6 +303,12 @@ vmap <c-x> <ESC>:set hls!<CR>gv
 vnoremap < <gv
 vnoremap > >gv
 
+" Mapping W and Q
+:command WQ wq
+:command Wq wq
+:command W w
+:command Q q
+
 " Golden-ratio {
     " Don't resize automatically.
     let g:golden_ratio_autocommand = 0
@@ -363,8 +374,78 @@ let g:tagbar_type_go = {
     \ 'ctagsargs' : '-sort -silent'
 \ }
 
-" <TAB>: completion.
-inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>" "
+" neocomplete {{{
+    " Disable AutoComplPop.
+    let g:acp_enableAtStartup = 0
+    " Use neocomplete.
+    let g:neocomplete#enable_at_startup = 1
+    " Use smartcase.
+    let g:neocomplete#enable_smart_case = 1
+    " Set minimum syntax keyword length.
+    let g:neocomplete#sources#syntax#min_keyword_length = 3
+    let g:neocomplete#lock_buffer_name_pattern = '\*ku\*'
+
+    " Define dictionary.
+    let g:neocomplete#sources#dictionary#dictionaries = {
+                \ 'default' : '',
+                \ 'vimshell' : $HOME.'/.vimshell_hist',
+                \ 'scheme' : $HOME.'/.gosh_completions'
+                \ }
+
+    " Define keyword.
+    if !exists('g:neocomplete#keyword_patterns')
+        let g:neocomplete#keyword_patterns = {}
+    endif
+    let g:neocomplete#keyword_patterns['default'] = '\h\w*'
+
+    " Plugin key-mappings.
+    inoremap <expr><C-g>     neocomplete#undo_completion()
+    inoremap <expr><C-l>     neocomplete#complete_common_string()
+
+    " Recommended key-mappings.
+    " <CR>: close popup and save indent.
+    inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
+    function! s:my_cr_function()
+        return (pumvisible() ? "\<C-y>" : "" ) . "\<CR>"
+        " For no inserting <CR> key.
+        "return pumvisible() ? "\<C-y>" : "\<CR>"
+    endfunction
+    " <TAB>: completion.
+    inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
+    " <C-h>, <BS>: close popup and delete backword char.
+    inoremap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
+    inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
+    " Close popup by <Space>.
+    "inoremap <expr><Space> pumvisible() ? "\<C-y>" : "\<Space>"
+
+    " AutoComplPop like behavior.
+    "let g:neocomplete#enable_auto_select = 1
+
+    " Shell like behavior(not recommended).
+    "set completeopt+=longest
+    "let g:neocomplete#enable_auto_select = 1
+    "let g:neocomplete#disable_auto_complete = 1
+    "inoremap <expr><TAB>  pumvisible() ? "\<Down>" : "\<C-x>\<C-u>"
+
+    " Enable omni completion.
+    autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
+    autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
+    autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
+    autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
+    autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
+
+    " Enable heavy omni completion.
+    if !exists('g:neocomplete#sources#omni#input_patterns')
+        let g:neocomplete#sources#omni#input_patterns = {}
+    endif
+    "let g:neocomplete#sources#omni#input_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
+    "let g:neocomplete#sources#omni#input_patterns.c = '[^.[:digit:] *\t]\%(\.\|->\)'
+    "let g:neocomplete#sources#omni#input_patterns.cpp = '[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
+
+    " For perlomni.vim setting.
+    " https://github.com/c9s/perlomni.vim
+    let g:neocomplete#sources#omni#input_patterns.perl = '\h\w*->\h\w*\|\h\w*::'
+" }}}
 
 " Plugin key-mappings.
 imap <C-k>     <Plug>(neosnippet_expand_or_jump)
@@ -377,3 +458,31 @@ let g:neosnippet#enable_snipmate_compatibility = 1
 " Tell Neosnippet about the other snippets
 let g:neosnippet#snippets_directory='~/.vim/bundle/vim-snippets/snippets'
 au BufRead,BufNewFile *.tpl set filetype=gotplhtml
+
+" Extra space for Nerd Commentor
+let NERDSpaceDelims=1
+
+" Quickfix enter jump
+autocmd BufReadPost quickfix nnoremap <buffer> <CR> <CR>
+
+" use jedi instead of ycm for python
+let g:ycm_filetype_specific_completion_to_disable = { 'python' : 1 }
+let g:ycm_filetype_blacklist = { 'python' : 1 }
+let g:jedi#completions_command = "<TAB>"
+
+" use jshint2
+let jshint2_save = 1
+" jshint validation
+nnoremap <silent><F1> :JSHint<CR>
+inoremap <silent><F1> <C-O>:JSHint<CR>
+vnoremap <silent><F1> :JSHint<CR>
+
+" show next jshint error
+nnoremap <silent><F2> :lnext<CR>
+inoremap <silent><F2> <C-O>:lnext<CR>
+vnoremap <silent><F2> :lnext<CR>
+
+" show previous jshint error
+nnoremap <silent><F3> :lprevious<CR>
+inoremap <silent><F3> <C-O>:lprevious<CR>
+vnoremap <silent><F3> :lprevious<CR>
