@@ -102,8 +102,6 @@ Bundle 'tell-k/vim-autopep8'
 " GoLang
 Bundle 'fatih/vim-go'
 Bundle 'cespare/vim-go-templates'
-" Javascript
-Bundle 'Shutnik/jshint2.vim'
 " avro
 Bundle 'dln/avro-vim'
 " thrift
@@ -131,7 +129,7 @@ let maplocalleader = '\'
 " tablength exceptions
 autocmd FileType html setlocal shiftwidth=4 tabstop=4
 autocmd FileType htmldjango setlocal shiftwidth=4 tabstop=4
-autocmd FileType javascript setlocal shiftwidth=4 tabstop=4
+autocmd FileType javascript setlocal shiftwidth=2 tabstop=2
 autocmd FileType coffee setlocal shiftwidth=2 tabstop=2
 autocmd BufNewFile,BufReadPost *.coffee setl shiftwidth=2 expandtab
 " automatically close autocompletion window
@@ -346,26 +344,27 @@ let NERDSpaceDelims=1
 " Quickfix enter jump
 autocmd BufReadPost quickfix nnoremap <buffer> <CR> <CR>
 
-" use jshint2
-let jshint2_save = 1
-" jshint validation
-nnoremap <silent><F1> :JSHint<CR>
-inoremap <silent><F1> <C-O>:JSHint<CR>
-vnoremap <silent><F1> :JSHint<CR>
-
-" show next jshint error
-nnoremap <silent><F5> :lnext<CR>
-inoremap <silent><F5> <C-O>:lnext<CR>
-vnoremap <silent><F5> :lnext<CR>
-
-" show previous jshint error
-nnoremap <silent><F6> :lprevious<CR>
-inoremap <silent><F6> <C-O>:lprevious<CR>
-vnoremap <silent><F6> :lprevious<CR>
-
 " ycm
 set completeopt-=preview
 let g:ycm_add_preview_to_completeopt=0
+
+" vim-js
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+
+let g:syntastic_error_symbol = "\u2717"
+let g:syntastic_warning_symbol = "\u26A0"
+let g:syntastic_javascript_checkers = ['eslint']
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
+
+highlight link SyntasticErrorSign SignColumn
+highlight link SyntasticWarningSign SignColumn
+highlight link SyntasticStyleErrorSign SignColumn
+highlight link SyntasticStyleWarningSign SignColumn
 
 " vim-go
 let g:syntastic_go_checkers = ['golint', 'govet', 'errcheck', 'go']
