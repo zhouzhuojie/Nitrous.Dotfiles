@@ -26,8 +26,7 @@ Bundle 'gmarik/vundle'
 " terminalkeys
 Bundle 'nacitar/terminalkeys.vim'
 
-" Vim Airline
-Bundle 'vim-airline/vim-airline'
+Bundle 'itchyny/lightline.vim'
 
 " Test
 Bundle 'janko-m/vim-test'
@@ -95,7 +94,7 @@ Bundle 'godlygeek/tabular'
 " Undo
 Bundle 'Gundo'
 " Ag
-Bundle 'rking/ag.vim'
+Bundle 'albfan/ag.vim'
 Bundle 'kchmck/vim-coffee-script'
 " Pep8
 Bundle 'tell-k/vim-autopep8'
@@ -114,6 +113,18 @@ if iCanHazVundle == 0
     :BundleInstall
 endif
 
+" ==================== Settings ====================
+"
+
+" Search mappings: These will make it so that going to the next one in a
+" search will center on the line it's found in.
+noremap n nzzzv
+noremap N Nzzzv
+
+" Same when moving up and down
+noremap <C-d> <C-d>zz
+noremap <C-u> <C-u>zz
+
 " allow plugins by file type
 filetype plugin indent on
 
@@ -122,6 +133,7 @@ set expandtab
 set tabstop=4
 set softtabstop=4
 set shiftwidth=4
+set noshowmode
 
 let mapleader = ','
 let maplocalleader = '\'
@@ -202,6 +214,8 @@ ca w!! w !sudo tee "%"
 set pastetoggle=<leader>p
 
 nnoremap gk :Ag! "\b<C-R><C-W>\b"<CR>:cw<CR>
+nnoremap Q <Nop>
+map q: :q
 
 " CtrlP (new fuzzy finder)
 if exists("g:ctrlp_user_command")
@@ -272,6 +286,8 @@ vnoremap > >gv
 :command Wq wq
 :command W w
 :command Q q
+:command Qall qall
+:command Wall wall
 
 " Golden-ratio {
     " Don't resize automatically.
@@ -347,27 +363,141 @@ autocmd BufReadPost quickfix nnoremap <buffer> <CR> <CR>
 " ycm
 set completeopt-=preview
 let g:ycm_add_preview_to_completeopt=0
+nnoremap gd :YcmCompleter GoTo<CR>
+nnoremap gr :YcmCompleter GoToReferences<CR>
 
 " vim-js
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
-
-let g:syntastic_error_symbol = "\u2717"
-let g:syntastic_warning_symbol = "\u26A0"
 let g:syntastic_javascript_checkers = ['eslint']
-let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 0
 
 highlight link SyntasticErrorSign SignColumn
 highlight link SyntasticWarningSign SignColumn
 highlight link SyntasticStyleErrorSign SignColumn
 highlight link SyntasticStyleWarningSign SignColumn
 
-" vim-go
-let g:syntastic_go_checkers = ['golint', 'govet', 'errcheck', 'go']
+" ==================== Lightline ====================
+"
+let g:lightline = {
+      \ 'active': {
+      \   'left': [ [ 'mode', 'paste'],
+      \             [ 'fugitive', 'filename', 'modified', 'ctrlpmark', 'go'] ],
+      \   'right': [ [ 'lineinfo' ], 
+      \              [ 'percent' ], 
+      \              [ 'fileformat', 'fileencoding', 'filetype' ] ]
+      \ },
+      \ 'component': {
+      \   'go': '%#goStatuslineColor#%{LightLineGo()}',
+      \ },
+      \ 'component_visible_condition': {
+      \   'go': '(exists("*go#statusline#Show") && ""!=go#statusline#Show())'
+      \ },
+      \ 'component_function': {
+      \   'lineinfo': 'LightLineInfo',
+      \   'percent': 'LightLinePercent',
+      \   'modified': 'LightLineModified',
+      \   'filename': 'LightLineFilename',
+      \   'fileformat': 'LightLineFileformat',
+      \   'filetype': 'LightLineFiletype',
+      \   'fileencoding': 'LightLineFileencoding',
+      \   'mode': 'LightLineMode',
+      \   'fugitive': 'LightLineFugitive',
+      \   'ctrlpmark': 'CtrlPMark',
+      \ },
+      \ }
+
+function! LightLineModified()
+  if &filetype == "help"
+    return ""
+  elseif &modified
+    return "+"
+  elseif &modifiable
+    return ""
+  else
+    return ""
+  endif
+endfunction
+
+function! LightLineFileformat()
+  return winwidth(0) > 70 ? &fileformat : ''
+endfunction
+
+function! LightLineFiletype()
+  return winwidth(0) > 70 ? (strlen(&filetype) ? &filetype : 'no ft') : ''
+endfunction
+
+function! LightLineFileencoding()
+  return winwidth(0) > 70 ? (strlen(&fenc) ? &fenc : &enc) : ''
+endfunction
+
+function! LightLineInfo()
+  return winwidth(0) > 60 ? printf("%3d:%-2d", line('.'), col('.')) : ''
+endfunction
+
+function! LightLinePercent()
+  return &ft =~? 'vimfiler' ? '' : (100 * line('.') / line('$')) . '%'
+endfunction
+
+function! LightLineFugitive()
+  return exists('*fugitive#head') ? fugitive#head() : ''
+endfunction
+
+function! LightLineGo()
+  return exists('*go#statusline#Show') ? go#statusline#Show() : ''
+endfunction
+
+function! LightLineMode()
+  let fname = expand('%:t')
+  return fname == 'ControlP' ? 'CtrlP' :
+        \ &ft == 'vimfiler' ? 'VimFiler' :
+        \ winwidth(0) > 60 ? lightline#mode() : ''
+endfunction
+
+function! LightLineFilename()
+  let fname = expand('%:t')
+  if mode() == 't'
+    return ''
+  endif
+
+  return fname == 'ControlP' ? g:lightline.ctrlp_item :
+        \ &ft == 'vimfiler' ? vimfiler#get_status_string() :
+        \ ('' != LightLineReadonly() ? LightLineReadonly() . ' ' : '') .
+        \ ('' != fname ? fname : '[No Name]')
+endfunction
+
+function! LightLineReadonly()
+  return &ft !~? 'help' && &readonly ? 'RO' : ''
+endfunction
+
+function! CtrlPMark()
+  if expand('%:t') =~ 'ControlP'
+    call lightline#link('iR'[g:lightline.ctrlp_regex])
+    return lightline#concatenate([g:lightline.ctrlp_prev, g:lightline.ctrlp_item
+          \ , g:lightline.ctrlp_next], 0)
+  else
+    return ''
+  endif
+endfunction
+
+let g:ctrlp_status_func = {
+      \ 'main': 'CtrlPStatusFunc_1',
+      \ 'prog': 'CtrlPStatusFunc_2',
+      \ }
+
+function! CtrlPStatusFunc_1(focus, byfname, regex, prev, item, next, marked)
+  let g:lightline.ctrlp_regex = a:regex
+  let g:lightline.ctrlp_prev = a:prev
+  let g:lightline.ctrlp_item = a:item
+  let g:lightline.ctrlp_next = a:next
+  return lightline#statusline(0)
+endfunction
+
+function! CtrlPStatusFunc_2(str)
+  return lightline#statusline(0)
+endfunction
+
+" ==================== vim-go ====================
+"
+let g:syntastic_go_checkers = ['golint', 'govet', 'errcheck']
 let g:go_list_type = "quickfix"
 let g:go_highlight_functions = 1
 let g:go_highlight_methods = 1
@@ -385,3 +515,14 @@ nmap <silent> <leader>t :TestFile<CR>
 nmap <silent> <leader>f :TestNearest<CR>
 nmap <leader>a :GoAlternate<CR>
 nmap <leader>g :GoCoverageToggle<CR>
+nmap <leader>i :GoSameIdsToggle<CR>
+nmap <leader>d :GoDeclsDir<CR>
+autocmd BufWritePost *.go :GoBuild
+
+" create a go doc comment based on the word under the cursor
+function! s:create_go_doc_comment()
+  norm "zyiw
+  execute ":put! z"
+  execute ":norm I// \<Esc>$"
+endfunction
+nnoremap <leader>ui :<C-u>call <SID>create_go_doc_comment()<CR>
