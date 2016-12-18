@@ -250,7 +250,7 @@ let g:tabman_focus  = 'tf'
 " theme settings
 set t_Co=256
 set background=dark
-colorscheme molokai
+colorscheme Monokai
 
 " when scrolling, keep cursor 3 lines away from screen border
 set scrolloff=3
@@ -375,6 +375,10 @@ highlight link SyntasticWarningSign SignColumn
 highlight link SyntasticStyleErrorSign SignColumn
 highlight link SyntasticStyleWarningSign SignColumn
 
+let g:syntastic_mode_map = {
+    \ "mode": "active",
+    \ "passive_filetypes": ["sh"] }
+
 " ==================== Lightline ====================
 "
 let g:lightline = {
@@ -497,7 +501,7 @@ endfunction
 
 " ==================== vim-go ====================
 "
-let g:syntastic_go_checkers = ['golint', 'govet', 'errcheck']
+let g:syntastic_go_checkers = ['golint', 'govet', 'errcheck', 'go']
 let g:go_list_type = "quickfix"
 let g:go_highlight_functions = 1
 let g:go_highlight_methods = 1
@@ -517,7 +521,6 @@ nmap <leader>a :GoAlternate<CR>
 nmap <leader>g :GoCoverageToggle<CR>
 nmap <leader>i :GoSameIdsToggle<CR>
 nmap <leader>d :GoDeclsDir<CR>
-autocmd BufWritePost *.go :GoBuild
 
 " create a go doc comment based on the word under the cursor
 function! s:create_go_doc_comment()
