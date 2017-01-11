@@ -17,6 +17,8 @@ endif
 filetype off
 
 set rtp+=~/.vim/bundle/vundle/
+set rtp+=/usr/local/opt/fzf
+
 call vundle#rc()
 
 " let Vundle manage Vundle
@@ -35,7 +37,6 @@ Bundle 'janko-m/vim-test'
 Bundle 'airblade/vim-gitgutter'
 
 " HTML
-Bundle 'amirh/HTML-AutoCloseTag'
 Bundle 'hail2u/vim-css3-syntax'
 Bundle 'gorodinskiy/vim-coloresque'
 Bundle 'd11wtq/tomorrow-theme-vim'
@@ -51,7 +52,7 @@ Bundle 'scrooloose/nerdcommenter'
 " Class/module browser
 Bundle 'majutsushi/tagbar'
 " Code and files fuzzy finder
-Bundle 'ctrlpvim/ctrlp.vim'
+Bundle 'junegunn/fzf.vim'
 " Zen coding
 Bundle 'mattn/emmet-vim'
 " Git integration
@@ -213,29 +214,13 @@ ca w!! w !sudo tee "%"
 " Toggle Paste
 set pastetoggle=<leader>p
 
-nnoremap gk :Ag! "\b<C-R><C-W>\b"<CR>:cw<CR>
 nnoremap Q <Nop>
 map q: :q
 
-" CtrlP (new fuzzy finder)
-if exists("g:ctrlp_user_command")
-  unlet g:ctrlp_user_command
-endif
+" Ag
 if executable('ag')
-  " Use ag in CtrlP for listing files. Lightning fast and respects .gitignore
-  let g:ctrlp_user_command =
-    \ 'ag %s --hidden -U --files-with-matches -g ""'
-
-  " ag is fast enough that CtrlP doesn't need to cache
-  let g:ctrlp_use_caching = 0
+  noremap gk :AgGroup <C-r>=expand('<cword>')<CR><CR>
 endif
-let g:ctrlp_switch_buffer = 't'
-
-let g:ctrlp_map = ',e'
-" Don't change working directory
-let g:ctrlp_working_path_mode = 0
-" Ignore files on fuzzy finder
-let g:ctrlp_show_hidden = 1
 
 " Ignore files on NERDTree
 let NERDTreeIgnore = ['\.pyc$', '\.pyo$']
@@ -365,6 +350,10 @@ set completeopt-=preview
 let g:ycm_add_preview_to_completeopt=0
 nnoremap gd :YcmCompleter GoTo<CR>
 nnoremap gr :YcmCompleter GoToReferences<CR>
+
+" fzf
+nnoremap <silent> <leader>e :Files<CR>
+nnoremap <silent> <leader>d :Tags<CR>
 
 " vim-js
 let g:syntastic_javascript_checkers = ['eslint']
