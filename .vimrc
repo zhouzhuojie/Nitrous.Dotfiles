@@ -219,7 +219,13 @@ map q: :q
 
 " Ag
 if executable('ag')
-  noremap gk :AgGroup <C-r>=expand('<cword>')<CR><CR>
+  autocmd VimEnter * command! -bang -nargs=* Ag
+    \ call fzf#vim#ag(<q-args>,
+    \                 <bang>0 ? fzf#vim#with_preview('up:60%')
+    \                         : fzf#vim#with_preview('right:50%:hidden', '?'),
+    \                 <bang>0)
+  noremap gk :Ag <C-r>=expand('<cword>')<CR><CR>
+  noremap <C-f> :AgGroup 
 endif
 
 " Ignore files on NERDTree
