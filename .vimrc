@@ -225,7 +225,7 @@ if executable('ag')
     \                         : fzf#vim#with_preview('right:50%:hidden', '?'),
     \                 <bang>0)
   noremap gk :Ag <C-r>=expand('<cword>')<CR><CR>
-  noremap <C-f> :AgGroup 
+  noremap <C-f> :Ag 
 endif
 
 " Ignore files on NERDTree
@@ -241,7 +241,7 @@ let g:tabman_focus  = 'tf'
 " theme settings
 set t_Co=256
 set background=dark
-colorscheme Monokai
+colorscheme molokai
 
 " when scrolling, keep cursor 3 lines away from screen border
 set scrolloff=3
@@ -354,6 +354,7 @@ autocmd BufReadPost quickfix nnoremap <buffer> <CR> <CR>
 " ycm
 set completeopt-=preview
 let g:ycm_add_preview_to_completeopt=0
+let g:ycm_goto_buffer_command = 'new-or-existing-tab'
 nnoremap gd :YcmCompleter GoTo<CR>
 nnoremap gr :YcmCompleter GoToReferences<CR>
 
@@ -508,6 +509,7 @@ let g:go_term_enabled = 1
 let g:go_alternate_mode = "tabedit"
 let g:syntastic_aggregate_errors = 1
 let g:go_fmt_command = "goimports"
+let g:go_def_reuse_buffer = 1
 nmap gc :GoCallers<CR>
 nmap gi :GoInfo<CR>
 nmap <silent> <leader>t :TestFile<CR>
