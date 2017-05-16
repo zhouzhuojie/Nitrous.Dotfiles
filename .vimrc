@@ -2,117 +2,85 @@
 set nocompatible
 set encoding=utf-8 " Necessary to show Unicode glyphs
 
-" Setting up Vundle - the vim plugin bundler
-let iCanHazVundle=1
-let vundle_readme=expand('~/.vim/bundle/vundle/README.md')
-if !filereadable(vundle_readme)
-    echo "Installing Vundle..."
-    echo ""
-    silent !mkdir -p ~/.vim/bundle
-    silent !git clone https://github.com/gmarik/vundle ~/.vim/bundle/vundle
-    let iCanHazVundle=0
-endif
-
 " required for vundle
 filetype off
 
-set rtp+=~/.vim/bundle/vundle/
-set rtp+=/usr/local/opt/fzf
-
-call vundle#rc()
-
-" let Vundle manage Vundle
-" required!
-Bundle 'gmarik/vundle'
+call plug#begin('~/.vim/plugged')
 
 " terminalkeys
-Bundle 'nacitar/terminalkeys.vim'
+Plug 'nacitar/terminalkeys.vim'
 
-Bundle 'itchyny/lightline.vim'
+Plug 'itchyny/lightline.vim'
 
 " Test
-Bundle 'janko-m/vim-test'
+Plug 'janko-m/vim-test'
 
 " GitGutter
-Bundle 'airblade/vim-gitgutter'
+Plug 'airblade/vim-gitgutter'
+
+" Ruby
+Plug 'vim-ruby/vim-ruby'
 
 " HTML
-Bundle 'hail2u/vim-css3-syntax'
-Bundle 'gorodinskiy/vim-coloresque'
-Bundle 'd11wtq/tomorrow-theme-vim'
-Bundle 'tpope/vim-haml'
+Plug 'hail2u/vim-css3-syntax'
+Plug 'gorodinskiy/vim-coloresque'
+Plug 'd11wtq/tomorrow-theme-vim'
+Plug 'tpope/vim-haml'
+Plug 'scrooloose/nerdtree'
+Plug 'jistr/vim-nerdtree-tabs'
 
-" Fugitive
-" Bundle 'fugitive.vim'
-" Better file browser
-Bundle 'scrooloose/nerdtree'
-Bundle 'jistr/vim-nerdtree-tabs'
 " Code commenter
-Bundle 'scrooloose/nerdcommenter'
+Plug 'scrooloose/nerdcommenter'
 " Class/module browser
-Bundle 'majutsushi/tagbar'
+Plug 'majutsushi/tagbar'
 " Code and files fuzzy finder
-Bundle 'junegunn/fzf.vim'
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 " Zen coding
-Bundle 'mattn/emmet-vim'
+Plug 'mattn/emmet-vim'
 " Git integration
-Bundle 'motemen/git-vim'
+Plug 'motemen/git-vim'
 " Tab list panel
-Bundle 'kien/tabman.vim'
+Plug 'kien/tabman.vim'
 " Surround
-Bundle 'tpope/vim-surround'
+Plug 'tpope/vim-surround'
 " Autoclose
-Bundle 'Townk/vim-autoclose'
+Plug 'Townk/vim-autoclose'
 
-Bundle "pangloss/vim-javascript"
-Bundle "wavded/vim-stylus"
-Bundle "scrooloose/syntastic"
-Bundle "digitaltoad/vim-jade"
+Plug 'pangloss/vim-javascript'
+Plug 'wavded/vim-stylus'
+Plug 'scrooloose/syntastic'
+Plug 'digitaltoad/vim-jade'
 
-" Bundles from vim-scripts repos
-
-" Python code checker
-Bundle 'pyflakes.vim'
-Bundle 'hynek/vim-python-pep8-indent'
-" Search results counter
-Bundle 'IndexedSearch'
 " XML/HTML tags navigation
-Bundle 'matchit.zip'
-Bundle 'othree/html5.vim'
+Plug 'othree/html5.vim'
 " Gvim colorscheme
-Bundle 'ScrollColors'
-Bundle 'flazz/vim-colorschemes'
+Plug 'flazz/vim-colorschemes'
 " Yank history navigation
-Bundle 'YankRing.vim'
+Plug 'vim-scripts/YankRing.vim'
 " EasyMotion
-Bundle 'EasyMotion'
+Plug 'easymotion/vim-easymotion'
 " AutoComplete
-Bundle 'Valloric/YouCompleteMe'
+Plug 'Valloric/YouCompleteMe'
 " Jinja2
-Bundle 'lepture/vim-jinja'
+Plug 'lepture/vim-jinja'
 " Tabular
-Bundle 'godlygeek/tabular'
-" Undo
-Bundle 'Gundo'
+Plug 'godlygeek/tabular'
 " Ag
-Bundle 'albfan/ag.vim'
-Bundle 'kchmck/vim-coffee-script'
+Plug 'albfan/ag.vim'
+Plug 'kchmck/vim-coffee-script'
 " Pep8
-Bundle 'tell-k/vim-autopep8'
+Plug 'tell-k/vim-autopep8'
 " GoLang
-Bundle 'fatih/vim-go'
-Bundle 'cespare/vim-go-templates'
+Plug 'fatih/vim-go'
+Plug 'cespare/vim-go-templates'
 " avro
-Bundle 'dln/avro-vim'
+Plug 'dln/avro-vim'
 " thrift
-Bundle 'solarnz/thrift.vim'
+Plug 'solarnz/thrift.vim'
 
-" Installing plugins the first time
-if iCanHazVundle == 0
-    echo "Installing Bundles, please ignore key map error messages"
-    echo ""
-    :BundleInstall
-endif
+" Initialize plugin system
+call plug#end()
+
 
 " ==================== Settings ====================
 "
@@ -359,8 +327,7 @@ nnoremap gd :YcmCompleter GoTo<CR>
 nnoremap gr :YcmCompleter GoToReferences<CR>
 
 " fzf
-nnoremap <silent> <leader>e :Files<CR>
-nnoremap <silent> <leader>d :Tags<CR>
+nnoremap <silent> <leader>e :FZF<CR>
 
 " vim-js
 let g:syntastic_javascript_checkers = ['eslint']
