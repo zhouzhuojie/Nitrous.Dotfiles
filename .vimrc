@@ -110,6 +110,7 @@ let maplocalleader = '\'
 " tablength exceptions
 autocmd FileType html setlocal shiftwidth=4 tabstop=4
 autocmd FileType htmldjango setlocal shiftwidth=4 tabstop=4
+autocmd FileType ruby setlocal shiftwidth=2 tabstop=2
 autocmd FileType javascript setlocal shiftwidth=2 tabstop=2
 autocmd FileType coffee setlocal shiftwidth=2 tabstop=2
 autocmd BufNewFile,BufReadPost *.coffee setl shiftwidth=2 expandtab
@@ -187,11 +188,6 @@ map q: :q
 
 " Ag
 if executable('ag')
-  autocmd VimEnter * command! -bang -nargs=* Ag
-    \ call fzf#vim#ag(<q-args>,
-    \                 <bang>0 ? fzf#vim#with_preview('up:60%')
-    \                         : fzf#vim#with_preview('right:50%:hidden', '?'),
-    \                 <bang>0)
   noremap gk :Ag <C-r>=expand('<cword>')<CR><CR>
   noremap <C-f> :Ag 
 endif
