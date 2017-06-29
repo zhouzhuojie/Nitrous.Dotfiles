@@ -20,6 +20,8 @@ Plug 'airblade/vim-gitgutter'
 
 " Ruby
 Plug 'vim-ruby/vim-ruby'
+Plug 'tpope/vim-endwise'
+Plug 'Yggdroot/indentLine'
 
 " HTML
 Plug 'hail2u/vim-css3-syntax'
@@ -78,6 +80,7 @@ Plug 'dln/avro-vim'
 " thrift
 Plug 'solarnz/thrift.vim'
 
+
 " Initialize plugin system
 call plug#end()
 
@@ -110,7 +113,7 @@ let maplocalleader = '\'
 " tablength exceptions
 autocmd FileType html setlocal shiftwidth=4 tabstop=4
 autocmd FileType htmldjango setlocal shiftwidth=4 tabstop=4
-autocmd FileType ruby setlocal shiftwidth=2 tabstop=2
+autocmd FileType ruby setlocal shiftwidth=2 tabstop=2 softtabstop=2 expandtab
 autocmd FileType javascript setlocal shiftwidth=2 tabstop=2
 autocmd FileType coffee setlocal shiftwidth=2 tabstop=2
 autocmd BufNewFile,BufReadPost *.coffee setl shiftwidth=2 expandtab
@@ -489,3 +492,13 @@ function! s:create_go_doc_comment()
   execute ":norm I// \<Esc>$"
 endfunction
 nnoremap <leader>ui :<C-u>call <SID>create_go_doc_comment()<CR>
+
+
+" =================== ruby =========================
+"
+let g:syntastic_ruby_checkers = ['rubocop', 'mri', 'jruby']
+nnoremap <leader>m :! echo "running test for %" && RACK_ENV=test bundle exec m %<CR>
+nnoremap gt <C-]>
+autocmd FileType ruby,eruby let g:rubycomplete_buffer_loading = 1
+autocmd FileType ruby,eruby let g:rubycomplete_classes_in_global = 1
+autocmd FileType ruby,eruby let g:rubycomplete_rails = 1
