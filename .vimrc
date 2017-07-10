@@ -35,8 +35,11 @@ Plug 'jistr/vim-nerdtree-tabs'
 Plug 'scrooloose/nerdcommenter'
 " Class/module browser
 Plug 'majutsushi/tagbar'
+
 " Code and files fuzzy finder
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'pbogut/fzf-mru.vim'
+
 " Zen coding
 Plug 'mattn/emmet-vim'
 " Git integration
@@ -79,6 +82,8 @@ Plug 'cespare/vim-go-templates'
 Plug 'dln/avro-vim'
 " thrift
 Plug 'solarnz/thrift.vim'
+
+Plug 'benmills/vimux'
 
 
 " Initialize plugin system
@@ -327,6 +332,7 @@ nnoremap gr :YcmCompleter GoToReferences<CR>
 
 " fzf
 nnoremap <silent> <leader>e :FZF<CR>
+nnoremap <silent> <leader>p :FZFMru<CR>
 
 " vim-js
 let g:syntastic_javascript_checkers = ['eslint']
@@ -476,6 +482,7 @@ let g:go_alternate_mode = "tabedit"
 let g:syntastic_aggregate_errors = 1
 let g:go_fmt_command = "goimports"
 let g:go_def_reuse_buffer = 1
+let test#strategy = 'vimux'
 nmap gc :GoCallers<CR>
 nmap gi :GoInfo<CR>
 nmap <silent> <leader>t :TestFile<CR>
@@ -497,8 +504,5 @@ nnoremap <leader>ui :<C-u>call <SID>create_go_doc_comment()<CR>
 " =================== ruby =========================
 "
 let g:syntastic_ruby_checkers = ['rubocop', 'mri', 'jruby']
-nnoremap <leader>m :! echo "running test for %" && RACK_ENV=test bundle exec m %<CR>
+nnoremap <leader>m :call VimuxRunCommand("clear; RACK_ENV=test bundle exec m " . bufname("%"))<CR>
 nnoremap gt <C-]>
-autocmd FileType ruby,eruby let g:rubycomplete_buffer_loading = 1
-autocmd FileType ruby,eruby let g:rubycomplete_classes_in_global = 1
-autocmd FileType ruby,eruby let g:rubycomplete_rails = 1
