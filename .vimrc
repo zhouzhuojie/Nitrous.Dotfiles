@@ -38,7 +38,6 @@ Plug 'majutsushi/tagbar'
 
 " Code and files fuzzy finder
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-Plug 'pbogut/fzf-mru.vim'
 
 " Zen coding
 Plug 'mattn/emmet-vim'
@@ -85,6 +84,18 @@ Plug 'solarnz/thrift.vim'
 
 Plug 'benmills/vimux'
 
+Plug 'plasticboy/vim-markdown'
+
+Plug 'vim-scripts/SyntaxRange'
+
+Plug 'uarun/vim-protobuf'
+
+Plug 'rhysd/vim-grammarous'
+
+Plug 'posva/vim-vue'
+
+Plug 'adelarsq/vim-matchit'
+
 
 " Initialize plugin system
 call plug#end()
@@ -116,10 +127,13 @@ let mapleader = ','
 let maplocalleader = '\'
 
 " tablength exceptions
-autocmd FileType html setlocal shiftwidth=4 tabstop=4
-autocmd FileType htmldjango setlocal shiftwidth=4 tabstop=4
+autocmd FileType html setlocal shiftwidth=2 tabstop=2
+autocmd FileType htmldjango setlocal shiftwidth=2 tabstop=2
 autocmd FileType ruby setlocal shiftwidth=2 tabstop=2 softtabstop=2 expandtab
+autocmd FileType yml setlocal shiftwidth=2 tabstop=2 softtabstop=2 expandtab
+autocmd FileType yaml setlocal shiftwidth=2 tabstop=2 softtabstop=2 expandtab
 autocmd FileType javascript setlocal shiftwidth=2 tabstop=2
+autocmd FileType vue setlocal shiftwidth=2 tabstop=2
 autocmd FileType coffee setlocal shiftwidth=2 tabstop=2
 autocmd BufNewFile,BufReadPost *.coffee setl shiftwidth=2 expandtab
 " automatically close autocompletion window
@@ -127,8 +141,7 @@ autocmd CursorMovedI * if pumvisible() == 0|pclose|endif
 autocmd InsertLeave * if pumvisible() == 0|pclose|endif
 " run pep8+pyflakes+pylint validator with \8
 autocmd FileType python map <buffer> <leader>8 :PyLint<CR>
-autocmd InsertEnter *.json setlocal conceallevel=0 concealcursor=
-autocmd InsertLeave *.json setlocal conceallevel=0 concealcursor=inc
+autocmd BufNewFile,BufRead *.json set ft=javascript
 au BufNewFile,BufRead *.ejs set filetype=html
 au FileType python setlocal formatprg=autopep8\ -aa\ --indent-size\ 0\ -
 
@@ -332,7 +345,6 @@ nnoremap gr :YcmCompleter GoToReferences<CR>
 
 " fzf
 nnoremap <silent> <leader>e :FZF<CR>
-nnoremap <silent> <leader>p :FZFMru<CR>
 
 " vim-js
 let g:syntastic_javascript_checkers = ['eslint']
@@ -469,8 +481,9 @@ endfunction
 
 " ==================== vim-go ====================
 "
-let g:syntastic_go_checkers = ['golint', 'govet', 'errcheck', 'go']
-let g:go_list_type = "quickfix"
+let g:syntastic_go_checkers = ['go', 'gometalinter']
+let g:go_list_type = "locationlist"
+let g:go_list_autoclose = 1
 let g:go_highlight_functions = 1
 let g:go_highlight_methods = 1
 let g:go_highlight_structs = 0
@@ -501,8 +514,14 @@ endfunction
 nnoremap <leader>ui :<C-u>call <SID>create_go_doc_comment()<CR>
 
 
+" =================== markdown =========================
+"
+let g:vim_markdown_conceal = 0
+let g:vim_markdown_folding_disabled = 1
+
 " =================== ruby =========================
 "
 let g:syntastic_ruby_checkers = ['rubocop', 'mri', 'jruby']
+let g:EclimCompletionMethod = 'omnifunc'
 nnoremap <leader>m :call VimuxRunCommand("clear; RACK_ENV=test bundle exec m " . bufname("%"))<CR>
 nnoremap gt <C-]>
