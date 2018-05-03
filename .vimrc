@@ -3,7 +3,7 @@ set nocompatible
 set encoding=utf-8 " Necessary to show Unicode glyphs
 
 " required for vundle
-filetype off
+" filetype off
 
 call plug#begin('~/.vim/plugged')
 
@@ -21,7 +21,6 @@ Plug 'airblade/vim-gitgutter'
 " Ruby
 Plug 'vim-ruby/vim-ruby'
 Plug 'tpope/vim-endwise'
-Plug 'Yggdroot/indentLine'
 
 " HTML
 Plug 'hail2u/vim-css3-syntax'
@@ -65,6 +64,7 @@ Plug 'vim-scripts/YankRing.vim'
 Plug 'easymotion/vim-easymotion'
 " AutoComplete
 Plug 'Valloric/YouCompleteMe'
+
 " Jinja2
 Plug 'lepture/vim-jinja'
 " Tabular
@@ -481,7 +481,7 @@ endfunction
 
 " ==================== vim-go ====================
 "
-let g:syntastic_go_checkers = ['go', 'gometalinter']
+let g:syntastic_go_checkers = ['go', 'gofmt', 'golint', 'govet']
 let g:go_list_type = "locationlist"
 let g:go_list_autoclose = 1
 let g:go_highlight_functions = 1
