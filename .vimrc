@@ -3,7 +3,7 @@ set nocompatible
 set encoding=utf-8 " Necessary to show Unicode glyphs
 
 " required for vundle
-" filetype off
+filetype off
 
 call plug#begin('~/.vim/plugged')
 
