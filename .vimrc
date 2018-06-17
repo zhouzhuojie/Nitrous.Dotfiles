@@ -96,6 +96,11 @@ Plug 'posva/vim-vue'
 
 Plug 'adelarsq/vim-matchit'
 
+Plug 'tomlion/vim-solidity'
+
+Plug 'ntpeters/vim-better-whitespace'
+
+
 
 " Initialize plugin system
 call plug#end()
@@ -338,13 +343,15 @@ autocmd BufReadPost quickfix nnoremap <buffer> <CR> <CR>
 
 " ycm
 set completeopt-=preview
-let g:ycm_add_preview_to_completeopt=0
+let g:ycm_add_preview_to_completeopt = 0
 let g:ycm_goto_buffer_command = 'new-or-existing-tab'
+let g:ycm_gocode_binary_path = "$GOPATH/bin/gocode"
 nnoremap gd :YcmCompleter GoTo<CR>
 nnoremap gr :YcmCompleter GoToReferences<CR>
 
 " fzf
 nnoremap <silent> <leader>e :FZF<CR>
+let $FZF_DEFAULT_COMMAND= 'ag -g ""'
 
 " vim-js
 let g:syntastic_javascript_checkers = ['eslint']
