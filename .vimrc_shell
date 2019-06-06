@@ -103,6 +103,10 @@ Plug 'adelarsq/vim-matchit'
 
 Plug 'ntpeters/vim-better-whitespace'
 
+Plug 'rust-lang/rust.vim'
+
+Plug 'tbastos/vim-lua'
+
 
 " Initialize plugin system
 call plug#end()
@@ -137,6 +141,7 @@ let maplocalleader = '\'
 autocmd FileType html setlocal shiftwidth=2 tabstop=2
 autocmd FileType htmldjango setlocal shiftwidth=2 tabstop=2
 autocmd FileType ruby setlocal shiftwidth=2 tabstop=2 softtabstop=2 expandtab
+autocmd FileType lua setlocal shiftwidth=2 tabstop=2 softtabstop=2 expandtab
 autocmd FileType yml setlocal shiftwidth=2 tabstop=2 softtabstop=2 expandtab
 autocmd FileType yaml setlocal shiftwidth=2 tabstop=2 softtabstop=2 expandtab
 autocmd FileType javascript setlocal shiftwidth=2 tabstop=2
@@ -497,6 +502,7 @@ let g:go_alternate_mode = "tabedit"
 let g:syntastic_aggregate_errors = 1
 let g:go_fmt_command = "goimports"
 let g:go_def_reuse_buffer = 1
+let g:go_def_mode='gopls'
 let test#strategy = 'vimux'
 nmap gc :GoCallers<CR>
 nmap gi :GoInfo<CR>
@@ -527,3 +533,8 @@ let g:syntastic_ruby_checkers = ['rubocop', 'mri', 'jruby']
 let g:EclimCompletionMethod = 'omnifunc'
 nnoremap <leader>m :call VimuxRunCommand("clear; RACK_ENV=test bundle exec m " . bufname("%"))<CR>
 nnoremap gt <C-]>
+
+
+" =================== rust =========================
+"
+let g:rustfmt_autosave = 1
