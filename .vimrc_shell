@@ -68,7 +68,7 @@ Plug 'vim-scripts/YankRing.vim'
 " EasyMotion
 Plug 'easymotion/vim-easymotion'
 " AutoComplete
-Plug 'Valloric/YouCompleteMe'
+Plug 'zxqfl/tabnine-vim'
 
 " Jinja2
 Plug 'lepture/vim-jinja'
@@ -106,6 +106,8 @@ Plug 'ntpeters/vim-better-whitespace'
 Plug 'rust-lang/rust.vim'
 
 Plug 'tbastos/vim-lua'
+
+Plug 'b4b4r07/vim-hcl'
 
 
 " Initialize plugin system
@@ -488,7 +490,9 @@ endfunction
 
 " ==================== vim-go ====================
 "
-let g:syntastic_go_checkers = ['go', 'gofmt', 'golint', 'govet']
+let g:syntastic_go_checkers = ['go', 'gofmt', 'govet']
+let g:syntastic_aggregate_errors = 1
+let g:go_metalinter_command = "golangci-lint"
 let g:go_list_type = "locationlist"
 let g:go_list_autoclose = 1
 let g:go_highlight_functions = 1
@@ -499,7 +503,6 @@ let g:go_highlight_operators = 0
 let g:go_highlight_build_constraints = 1
 let g:go_term_enabled = 1
 let g:go_alternate_mode = "tabedit"
-let g:syntastic_aggregate_errors = 1
 let g:go_fmt_command = "goimports"
 let g:go_def_reuse_buffer = 1
 let g:go_def_mode='gopls'
