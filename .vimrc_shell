@@ -42,6 +42,8 @@ Plug 'majutsushi/tagbar'
 " Code and files fuzzy finder
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 
+Plug 'https://github.com/alok/notational-fzf-vim'
+
 " Zen coding
 Plug 'mattn/emmet-vim'
 " Git integration
@@ -524,6 +526,10 @@ function! s:create_go_doc_comment()
 endfunction
 nnoremap <leader>ui :<C-u>call <SID>create_go_doc_comment()<CR>
 
+" =================== markdown =========================
+"
+let g:nv_search_paths = ['~/.SiriKali/NV']
+nnoremap <silent> <leader>n :NV<CR>
 
 " =================== markdown =========================
 "

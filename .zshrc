@@ -49,13 +49,6 @@ fi
 # some more ls aliases
 alias ll='ls -alF --group-directories-first'
 alias la='ls -A'
-alias l='ls -CF'
-alias search='apt-cache search'
-alias install='sudo apt-get install'
-alias update='sudo apt-get update'
-alias upgrade='sudo apt-get upgrade'
-alias webshare='python $HOME/.config/SimpleHTTPServerWithUpload/SimpleHTTPServerWithUpload.py'
-alias fast='fastosphere'
 
 setopt nocorrectall
 
@@ -63,11 +56,6 @@ setopt nocorrectall
 export TERM="xterm-256color"
 export R_LIBS="/home/zzj/R/library"
 
-PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
-source ~/.nvm/nvm.sh
-
-export GOROOT=/usr/lib/go
-export GOPATH=$HOME/go
-export PATH=$PATH:$GOROOT/bin:$GOPATH/bin
+export PATH=$PATH:$HOME/go/bin:$HOME/.cargo/bin
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
