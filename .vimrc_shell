@@ -42,8 +42,6 @@ Plug 'majutsushi/tagbar'
 " Code and files fuzzy finder
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 
-Plug 'https://github.com/alok/notational-fzf-vim'
-
 " Zen coding
 Plug 'mattn/emmet-vim'
 " Git integration
@@ -76,8 +74,8 @@ Plug 'zxqfl/tabnine-vim'
 Plug 'lepture/vim-jinja'
 " Tabular
 Plug 'godlygeek/tabular'
-" Ag
-Plug 'albfan/ag.vim'
+" Code Search
+Plug 'dyng/ctrlsf.vim'
 Plug 'kchmck/vim-coffee-script'
 " Pep8
 Plug 'tell-k/vim-autopep8'
@@ -223,10 +221,11 @@ set pastetoggle=<leader>p
 nnoremap Q <Nop>
 map q: :q
 
-" Ag
-if executable('ag')
-  noremap gk :Ag <C-r>=expand('<cword>')<CR><CR>
-  noremap <C-f> :Ag 
+" Code Search
+if executable('rg')
+  let g:ctrlsf_ackprg = 'rg'
+  noremap gk :CtrlSF -hidden -S <C-r>=expand('<cword>')<CR><CR>
+  noremap <C-f> :CtrlSF -hidden -S 
 endif
 
 " Ignore files on NERDTree
@@ -525,11 +524,6 @@ function! s:create_go_doc_comment()
   execute ":norm I// \<Esc>$"
 endfunction
 nnoremap <leader>ui :<C-u>call <SID>create_go_doc_comment()<CR>
-
-" =================== markdown =========================
-"
-let g:nv_search_paths = ['~/.SiriKali/NV']
-nnoremap <silent> <leader>n :NV<CR>
 
 " =================== markdown =========================
 "
