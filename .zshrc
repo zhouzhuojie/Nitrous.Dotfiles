@@ -5,7 +5,8 @@ ZSH=$HOME/.oh-my-zsh
 # Look in ~/.oh-my-zsh/themes/
 # Optionally, if you set this to "random", it'll load a random theme each
 # time that oh-my-zsh is loaded.
-ZSH_THEME="terminalparty"
+# ZSH_THEME="terminalparty"
+ZSH_THEME="theunraveler"
 
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
@@ -29,7 +30,7 @@ ZSH_THEME="terminalparty"
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
-plugins=(git meteor wd)
+plugins=(git zsh-syntax-highlighting git-extra wd history)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -47,15 +48,24 @@ if [ -x /usr/bin/dircolors ]; then
 fi
 
 # some more ls aliases
-alias ll='ls -alF --group-directories-first'
+alias ls='exa'
+alias ll='ls -alhF --group-directories-first --git'
 alias la='ls -A'
+alias gbr='git branch | grep -v "master" | xargs git branch -D'
+alias k='kubectl'
+alias kk='kube-prompt'
+alias lo='buffalo'
+alias cadence="docker run --rm ubercadence/cli:master --address host.docker.internal:7933"
+alias tctl="docker run --network=host --rm temporalio/tctl:0.21.1"
 
 setopt nocorrectall
 
-#256-colour support
 export TERM="xterm-256color"
+export GPG_TTY=$(tty)
+export KEYTIMEOUT=1
 export R_LIBS="/home/zzj/R/library"
-
-export PATH=$PATH:$HOME/go/bin:$HOME/.cargo/bin
-
+eval "$(rbenv init -)"
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+export FZF_DEFAULT_COMMAND='rg --files --no-ignore-vcs --hidden'
+export PATH=$PATH:$HOME/.cargo/bin
+if [ /usr/local/bin/kubectl ]; then source <(kubectl completion zsh); fi
